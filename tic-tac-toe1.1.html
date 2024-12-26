@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        .box {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 15px;
+            background-color: black;
+            border: 5px solid black;
+            border-radius: 5px;
+            padding: 15px;
+            width: 350px;
+            margin: auto;
+            flex-wrap: wrap;
+           
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background-color: gold;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        #restartBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover{
+            filter: drop-shadow(0 0 2vmin rgb(71, 214, 221));
+  background-color: aqua;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 1.2rem;
+           
+            color: white;
+        }
+
+    </style>
+    
+</head>
+
+  <body style="background: black;">
+    <BGSOUND src="C:\Users\P C Jain\.vscode\style\js\music-for-games.mp3" loop="infinte" autostart="true">
+    <center>
+        <u>
+            <h1 style="color: rgb(46, 91, 223);">
+                TIC-TAC-TOE GAME
+            </h1>
+        </u>
+        <div class="box">
+            <div class="item" data-index="0"></div>
+            <div class="item" data-index="1"></div>
+            <div class="item" data-index="2"></div>
+            <div class="item" data-index="3"></div>
+            <div class="item" data-index="4"></div>
+            <div class="item" data-index="5"></div>
+            <div class="item" data-index="6"></div>
+            <div class="item" data-index="7"></div>
+            <div class="item" data-index="8"></div>
+        </div>
+        <button id="restartBtn">Reset Game</button>
+        <p id="status"></p>
+        <audio autoplay loop>
+            <source src="music-for-games.mp3" type="audio/mpeg">
+        </audio>
+    </center>
+
+    <script>
+        
+      
+        const items = document.querySelectorAll(".item");
+        const restartBtn = document.getElementById("restartBtn");
+        const statusText = document.getElementById("status");
+
+        const winConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        let options = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let running = false;
+
+        initializeGame();
+
+        function initializeGame() {
+            items.forEach(item => item.addEventListener("click", itemClicked));
+            restartBtn.addEventListener("click", restartGame);
+            statusText.textContent = `Player ${currentPlayer}'s turn`;
+            running = true;
+        }
+
+        function itemClicked() {
+            const itemIndex = this.getAttribute("data-index");
+
+            if (options[itemIndex] !== "" || !running) {
+                return;
+            }
+
+            updateItem(this, itemIndex);
+            checkWinner();
+        }
+
+        function updateItem(item, index) {
+            options[index] = currentPlayer;
+            item.textContent = currentPlayer;
+        }
+
+        function changePlayer() {
+            currentPlayer = (currentPlayer === "X") ? "O" : "X";
+            statusText.textContent = `Player ${currentPlayer}'s turn`;
+        }
+
+        function checkWinner() {
+            let roundWon = false;
+
+            for (let i = 0; i < winConditions.length; i++) {
+                const condition = winConditions[i];
+                const itemA = options[condition[0]];
+                const itemB = options[condition[1]];
+                const itemC = options[condition[2]];
+
+                if (itemA === "" || itemB === "" || itemC === "") {
+                    continue;
+                }
+                if (itemA === itemB && itemB === itemC) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusText.textContent = `Player ${currentPlayer} wins!`;
+                running = false;
+            } else if (!options.includes("")) {
+                statusText.textContent = "It's a draw!";
+               
+                running = false;
+            } else {
+                changePlayer();
+            }
+        }
+
+        function restartGame() {
+            options = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            running = true;
+            
+            items.forEach(item => {
+                item.textContent = "";
+            });
+
+            statusText.textContent = `Player ${currentPlayer}'s turn`;
+        }
+    </script>
+</body>
+</html>
