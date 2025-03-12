@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <style>
+        
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url(ghostbg.jpg);
+            background-repeat: no-repeat;
+          color: aliceblue;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+           
+        }
+        .word-container {
+            font-size: 2rem;
+            margin: 20px;
+        }
+        .hint {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            justify-content: center;
+            max-width: 300px;
+            margin: auto;
+        }
+        button {
+            background-color: #fdc500;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 25px;
+            padding: 1.5rem;
+        }
+        button:hover {
+            background-color: #ebb902;
+        }
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+        #message {
+            font-size: 1.5rem;
+            margin: 20px;
+        }
+        #restart {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+       .heading{
+        color: white;
+        position: relative;
+       }
+    </style>
+
+</head>
+
+<body>
+    <audio src="music-for-games.mp3" autoplay muted></audio>
+
+    <div id="heading">
+        <img src="guees.jpg" height="100px" width="700px">
+</div>
+
+    <div class="hint" id="hint"></div>
+    <div class="word-container" id="wordContainer">_ _ _ _ _</div>
+    <div class="buttons" id="buttons"></div>
+    <div id="message"></div>
+
+    <button id="restart" onclick="restartGame()">Restart Game</button>
+
+    <script src="h.js"></script>
+
+     
+   
+// 
+
+
+</body>
+</html>
